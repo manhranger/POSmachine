@@ -11,3 +11,17 @@ C:\Excercise\WINDOWSPROGRAM\BTcuoiky\POSmachine\POSmachine\obj\Debug\POSmachine.
 C:\Excercise\WINDOWSPROGRAM\BTcuoiky\POSmachine\POSmachine\obj\Debug\POSmachine.pdb
 C:\Excercise\WINDOWSPROGRAM\BTcuoiky\POSmachine\POSmachine\bin\Debug\QLCUAHANG.mdf
 C:\Excercise\WINDOWSPROGRAM\BTcuoiky\POSmachine\POSmachine\bin\Debug\QLCUAHANG_log.ldf
+C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\bin\Debug\QLCUAHANG.mdf
+C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\bin\Debug\QLCUAHANG_log.ldf
+C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\bin\Debug\POSmachine.exe.config
+C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\bin\Debug\POSmachine.exe
+C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\bin\Debug\POSmachine.pdb
+C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\obj\Debug\POSmachine.csprojAssemblyReference.cache
+C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\obj\Debug\POSmachine.Form1.resources
+C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\obj\Debug\POSmachine.nhanvien.resources
+C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\obj\Debug\POSmachine.Properties.Resources.resources
+C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\obj\Debug\POSmachine.csproj.GenerateResource.cache
+C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\obj\Debug\POSmachine.csproj.CoreCompileInputs.cache
+C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\obj\Debug\POSmachine.exe
+C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\obj\Debug\POSmachine.pdb
+C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\obj\Debug\POSmachine.admin.resources

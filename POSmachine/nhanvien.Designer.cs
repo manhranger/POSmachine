@@ -30,7 +30,7 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.btnthoat = new System.Windows.Forms.Button();
-            this.lbname = new System.Windows.Forms.Label();
+            this.btnclick = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -44,7 +44,7 @@
             // 
             // btnthoat
             // 
-            this.btnthoat.Location = new System.Drawing.Point(534, 141);
+            this.btnthoat.Location = new System.Drawing.Point(534, 353);
             this.btnthoat.Name = "btnthoat";
             this.btnthoat.Size = new System.Drawing.Size(75, 23);
             this.btnthoat.TabIndex = 1;
@@ -52,25 +52,23 @@
             this.btnthoat.UseVisualStyleBackColor = true;
             this.btnthoat.Click += new System.EventHandler(this.btnthoat_Click);
             // 
-            // lbname
+            // btnclick
             // 
-            this.lbname.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.lbname.Location = new System.Drawing.Point(355, 9);
-            this.lbname.MaximumSize = new System.Drawing.Size(500, 0);
-            this.lbname.Name = "lbname";
-            this.lbname.Size = new System.Drawing.Size(254, 20);
-            this.lbname.TabIndex = 2;
-            this.lbname.Text = "Xin chào Tùng";
-            this.lbname.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.lbname.Click += new System.EventHandler(this.label2_Click);
+            this.btnclick.Location = new System.Drawing.Point(448, 353);
+            this.btnclick.Name = "btnclick";
+            this.btnclick.Size = new System.Drawing.Size(75, 23);
+            this.btnclick.TabIndex = 3;
+            this.btnclick.Text = "Click me";
+            this.btnclick.UseVisualStyleBackColor = true;
+            this.btnclick.Click += new System.EventHandler(this.btnclick_Click);
             // 
             // nhanvien
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.ClientSize = new System.Drawing.Size(621, 176);
-            this.Controls.Add(this.lbname);
+            this.ClientSize = new System.Drawing.Size(627, 388);
+            this.Controls.Add(this.btnclick);
             this.Controls.Add(this.btnthoat);
             this.Controls.Add(this.label1);
             this.ForeColor = System.Drawing.Color.Black;
@@ -86,6 +84,6 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnthoat;
-        private System.Windows.Forms.Label lbname;
+        private System.Windows.Forms.Button btnclick;
     }
 }
