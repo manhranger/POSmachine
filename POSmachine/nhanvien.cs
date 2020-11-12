@@ -8,29 +8,122 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Collections;
+using System.Deployment.Internal;
 
 namespace POSmachine
 {
     public partial class nhanvien : Form
     {
-        public int valPosVertical = -11;
-        Panel mypanel = new Panel() {Name = "pntest2"};
+        int idOrderLocation = -65;//id location Horizable
+        //
+        Panel myItemPanel = new Panel() {Name = "pntest2"};
+        Panel myOrderPanel = new Panel() { Name = "myOrderPanel" };
+        Label myTotalCostLabel = new Label() { Name = "myTotalCostLabel", Font = new Font("Microsoft Sans Serif", 10) };
+        Label myDateTimeLabel = new Label() { Name = "myDateTimeLabel", Font = new Font("Microsoft Sans Serif", 10) };
+        //
+        static string conString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\QLCUAHANG.mdf;Integrated Security=True";
+        SqlConnection myconn = new SqlConnection(conString);
+        SqlCommand cmd;
+        SqlDataAdapter da;
+        DataTable dt;
+        DataSet ds;
+        SqlDataReader rd;
+        //
+        List<int> idItemList = new List<int>();
         public nhanvien()
         {
             InitializeComponent();
-            this.Controls.Add(mypanel);
-            mypanel.AutoScroll = true;
-            mypanel.Location = new Point(288, 46);
-            mypanel.Size = new System.Drawing.Size(321, 301);
-            mypanel.BorderStyle = BorderStyle.FixedSingle;
+            createItemPanel();
+            createOrderPanel();
+            createTotalCostLabel();
+            createDateTimeLabel();
+            //open connect
+            myconn.Open();
         }
-        private void AddGroupBoxAndLables()
+        private void showItems(string chude)
         {
-            int distance = 23;
-            Label lblCompleted = new Label { Name = "lbtest"+valPosVertical, Text = "Completed"+valPosVertical };
-            lblCompleted.Location = new Point(3, valPosVertical+distance);
-            mypanel.Controls.Add(lblCompleted);
-            valPosVertical += distance;
+            string itemName = "";
+            int idLocation = -65,distance=68,price=0,id=0;
+            string filterQuery = "Select * from Items,Chude where Chude.Idchude = Items.Idchude and chude.Tenchude = N'" + chude + "'";
+            cmd = new SqlCommand(filterQuery, myconn);
+            da = new SqlDataAdapter(filterQuery, myconn);
+            dt = new DataTable();
+            ds = new DataSet();
+            da.Fill(ds);
+            //refresh items
+            this.Controls.Remove(myItemPanel);
+            myItemPanel = new Panel() { Name = "pntest2" };
+            createItemPanel();
+            ////select items
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
+                id = Int32.Parse(ds.Tables[0].Rows[i][0].ToString());
+                itemName = ds.Tables[0].Rows[i][1].ToString();
+                price = Int32.Parse(ds.Tables[0].Rows[i][2].ToString());
+                //set proberties
+                Label lbItemName = new Label { Name = "lbItemName-" + id, Text = itemName };
+                lbItemName.Location = new Point(5, 25);
+                Label lbItemPrice = new Label { Name = "lbItemPrice-" + id, Text = String.Format("{0:n0}", price) + "đ"};
+                lbItemPrice.Location = new Point(180, 25);
+                lbItemPrice.TextAlign = ContentAlignment.TopRight;
+                Button myBtnItem = new Button() { Name = "myBtnItem-" + id };
+                myBtnItem.Size = new System.Drawing.Size(295, 64);
+                myBtnItem.Location = new Point(3, idLocation + distance);
+                myBtnItem.BackColor = Color.White;
+                myBtnItem.Controls.Add(lbItemName); myBtnItem.Controls.Add(lbItemPrice);
+                //set event click
+                myBtnItem.Click += new EventHandler(eventOdered);
+                lbItemName.Click += new EventHandler(eventOdered);
+                lbItemPrice.Click += new EventHandler(eventOdered);
+                //
+                myItemPanel.Controls.Add(myBtnItem);
+                idLocation += distance;
+            }
+        }
+        private void showItemOrder(int id,string itemName,int price)
+        {
+            int distance = 68;
+            //
+            Label lbOrderCount = new Label { Name = "lbOrderCount-" + id, Text = "1"};
+            lbOrderCount.Location = new Point(4, 25);
+            lbOrderCount.Size = new System.Drawing.Size(81, 13);
+            //
+            Label lbOrderName = new Label { Name = "lbOrderName-" + id, Text = itemName };
+            lbOrderName.Location = new Point(42, 25);
+            lbOrderName.Size = new System.Drawing.Size(82, 13);
+            //
+            Label lbOrderPrice = new Label { Name = "lbOrderPrice-" + id, Text = price + ""};
+            lbOrderPrice.Location = new Point(130, 25);
+            lbOrderPrice.Size = new System.Drawing.Size(43, 13);
+            lbOrderPrice.TextAlign = ContentAlignment.TopRight;
+            //
+            Button myOrderBtn = new Button() { Name = "myOrderBtn-" + id };
+            myOrderBtn.Size = new System.Drawing.Size(178, 64);
+            myOrderBtn.Location = new Point(3, idOrderLocation + distance);
+            myOrderBtn.BackColor = Color.White;
+            myOrderBtn.Controls.Add(lbOrderName); myOrderBtn.Controls.Add(lbOrderPrice);
+            myOrderBtn.Controls.Add(lbOrderCount);
+            myOrderPanel.Controls.Add(myOrderBtn);
+            idOrderLocation += distance;
+        }
+        private void eventOdered(object sender, EventArgs e)
+        {
+            string strId;
+            try
+            {
+                Button currentButton = (Button)sender;
+                strId = currentButton.Name;
+            }
+            catch
+            {
+                Label currentLabel = (Label)sender;
+                strId = currentLabel.Name;
+            }
+            strId = strId.Substring(strId.IndexOf("-")+1,strId.Length-strId.IndexOf("-")-1);
+            int id = Int32.Parse(strId);
+            addInforItem(id);
+            tinhtongtien();
         }
         private void btnthoat_Click(object sender, EventArgs e)
         {
@@ -51,8 +144,154 @@ namespace POSmachine
 
         private void btnclick_Click(object sender, EventArgs e)
         {
-            //addNewTextBox();
-            AddGroupBoxAndLables();
+            //showItemOrder(1,"hahah",1);
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btntrasua_Click(object sender, EventArgs e)
+        {
+            string chude = "Trà sữa";
+            showItems(chude);
+        }
+
+        private void btntratraicay_Click(object sender, EventArgs e)
+        {
+            string chude = "Trà trái cây";
+            showItems(chude);
+        }
+
+        private void btncaphe_Click(object sender, EventArgs e)
+        {
+            string chude = "Cà phê";
+            showItems(chude);
+        }
+
+        private void btndoannhanh_Click(object sender, EventArgs e)
+        {
+            string chude = "Đồ ăn nhanh";
+            showItems(chude);
+        }
+
+        private void btndeleteI_Click(object sender, EventArgs e)
+        {
+            foreach (Control item in myItemPanel.Controls.OfType<Control>())
+            {
+                    myItemPanel.Controls.Remove(item);
+            }
+        }
+        private void createItemPanel()
+        {
+            this.Controls.Add(myItemPanel);
+            //myItemPanel config
+            myItemPanel.AutoScroll = true;
+            myItemPanel.Location = new Point(288, 48);
+            myItemPanel.Size = new System.Drawing.Size(321, 298);
+            myItemPanel.BorderStyle = BorderStyle.FixedSingle;
+        }
+        private void createOrderPanel()
+        {
+            this.Controls.Add(myOrderPanel);
+            //myOrderPanel config
+            myOrderPanel.AutoScroll = true;
+            myOrderPanel.Location = new Point(12, 48);
+            myOrderPanel.Size = new System.Drawing.Size(185, 298);
+            myOrderPanel.BorderStyle = BorderStyle.FixedSingle;
+        }
+        private void createTotalCostLabel()
+        {
+            //create total cost price
+            this.Controls.Add(myTotalCostLabel);
+            myTotalCostLabel.Location = new Point(55, 356);
+            myTotalCostLabel.Text = "0";
+        }
+        private void createDateTimeLabel()
+        {
+            //create total cost price
+            this.Controls.Add(myDateTimeLabel);
+            myDateTimeLabel.Location = new Point(537, 16);
+            DateTime today = DateTime.Today;
+            myDateTimeLabel.Text =today.ToString("d");
+            this.Controls.Add(myDateTimeLabel);
+        }
+        private void addInforItem(int id)
+        {
+            if (idItemList.Contains(id))
+            {
+                foreach (Control ctr in myOrderPanel.Controls)
+                {
+                    if (ctr.Name == "myOrderBtn-"+id)
+                    {
+                        foreach (Control ctr2 in ctr.Controls)
+                        {
+                            if (ctr2.Name == "lbOrderCount-"+id)
+                            {
+                                ctr2.Text = (Int32.Parse(ctr2.Text) + 1)+"";
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                idItemList.Add(id);
+                int price=0;string itemName="";
+                string filterQuery = "Select * from Items where Iditem = '" + id + "'";
+                cmd = new SqlCommand(filterQuery, myconn);
+                da = new SqlDataAdapter(filterQuery, myconn);
+                dt = new DataTable();
+                ds = new DataSet();
+                da.Fill(ds);
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+                    itemName = ds.Tables[0].Rows[i][1].ToString();
+                    price = Int32.Parse(ds.Tables[0].Rows[i][2].ToString());
+                }
+                showItemOrder(id,itemName,price);
+            }
+        }
+        private void tinhtongtien()
+        {
+            int totalCost = 0;
+            foreach (Control ctr in myOrderPanel.Controls)
+            {
+                int sl = 0, dg = 0;
+                foreach (Control ctr2 in ctr.Controls)
+                {
+                    if (ctr2.Name.IndexOf("lbOrderCount") >= 0)
+                    {
+                        sl = Int32.Parse(ctr2.Text);
+                    }
+                    else if (ctr2.Name.IndexOf("lbOrderPrice") >= 0)
+                    {
+                        dg = Int32.Parse(ctr2.Text);
+                    }
+                }
+                totalCost += (sl * dg);
+            }
+            foreach (Control ctr in this.Controls)
+            {
+                if (ctr.Name == "myTotalCostLabel")
+                {
+                    string moneyString = String.Format("{0:n0}", totalCost);
+                    ctr.Text = moneyString; 
+                    break;
+                }
+            }
+        }
+        private void btnlammoi_Click(object sender, EventArgs e)
+        {
+            this.Controls.Remove(myOrderPanel);
+            myOrderPanel = new Panel() { Name = "myOrderPanel" };
+            createOrderPanel();
+            this.Controls.Add(myOrderPanel);
+            idOrderLocation = -65;
+            idItemList.Clear();
+            tinhtongtien();
         }
     }
+
 }
