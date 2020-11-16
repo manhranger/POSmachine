@@ -40,13 +40,14 @@
             this.btninhoadon = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.btngiamgia = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbChangeText
             // 
             this.lbChangeText.AutoSize = true;
-            this.lbChangeText.Location = new System.Drawing.Point(256, 19);
+            this.lbChangeText.Location = new System.Drawing.Point(328, 16);
             this.lbChangeText.Name = "lbChangeText";
             this.lbChangeText.Size = new System.Drawing.Size(100, 13);
             this.lbChangeText.TabIndex = 0;
@@ -141,6 +142,7 @@
             this.btninhoadon.TabIndex = 7;
             this.btninhoadon.Text = "In hóa đơn";
             this.btninhoadon.UseVisualStyleBackColor = true;
+            this.btninhoadon.Click += new System.EventHandler(this.btninhoadon_Click);
             // 
             // label1
             // 
@@ -162,12 +164,23 @@
             this.label2.TabIndex = 9;
             this.label2.Text = "Ngày:";
             // 
+            // btngiamgia
+            // 
+            this.btngiamgia.Location = new System.Drawing.Point(174, 11);
+            this.btngiamgia.Name = "btngiamgia";
+            this.btngiamgia.Size = new System.Drawing.Size(103, 23);
+            this.btngiamgia.TabIndex = 10;
+            this.btngiamgia.Text = "Thêm giảm giá";
+            this.btngiamgia.UseVisualStyleBackColor = true;
+            this.btngiamgia.Click += new System.EventHandler(this.btngiamgia_Click);
+            // 
             // nhanvien
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(627, 388);
+            this.Controls.Add(this.btngiamgia);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btninhoadon);
@@ -200,5 +213,6 @@
         private System.Windows.Forms.Button btninhoadon;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btngiamgia;
     }
 }

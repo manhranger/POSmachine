@@ -16,12 +16,14 @@ namespace POSmachine
     public partial class nhanvien : Form
     {
         int idOrderLocation = -65;//id location Horizable
+        int gtgiamgia = 0;//
+        int totalCost = 0;
         //
         Panel myItemPanel = new Panel() {Name = "pntest2"};
         Panel myOrderPanel = new Panel() { Name = "myOrderPanel" };
         Label myTotalCostLabel = new Label() { Name = "myTotalCostLabel", Font = new Font("Microsoft Sans Serif", 10) };
         Label myDateTimeLabel = new Label() { Name = "myDateTimeLabel", Font = new Font("Microsoft Sans Serif", 10) };
-        //
+        //connect database
         static string conString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\QLCUAHANG.mdf;Integrated Security=True";
         SqlConnection myconn = new SqlConnection(conString);
         SqlCommand cmd;
@@ -29,8 +31,7 @@ namespace POSmachine
         DataTable dt;
         DataSet ds;
         SqlDataReader rd;
-        //
-        List<int> idItemList = new List<int>();
+        List<int> idItemAndAmountList = new List<int>();
         public nhanvien()
         {
             InitializeComponent();
@@ -88,10 +89,11 @@ namespace POSmachine
             Label lbOrderCount = new Label { Name = "lbOrderCount-" + id, Text = "1"};
             lbOrderCount.Location = new Point(4, 25);
             lbOrderCount.Size = new System.Drawing.Size(81, 13);
+            lbOrderCount.Font = new Font("Microsoft Sans Serif", 9, FontStyle.Bold);
             //
             Label lbOrderName = new Label { Name = "lbOrderName-" + id, Text = itemName };
             lbOrderName.Location = new Point(42, 25);
-            lbOrderName.Size = new System.Drawing.Size(82, 13);
+            lbOrderName.Size = new System.Drawing.Size(82, 27);
             //
             Label lbOrderPrice = new Label { Name = "lbOrderPrice-" + id, Text = price + ""};
             lbOrderPrice.Location = new Point(130, 25);
@@ -127,7 +129,7 @@ namespace POSmachine
         }
         private void btnthoat_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
             Form1 login = new Form1();
             login.Show();
         }
@@ -145,6 +147,7 @@ namespace POSmachine
         private void btnclick_Click(object sender, EventArgs e)
         {
             //showItemOrder(1,"hahah",1);
+            MessageBox.Show(idItemAndAmountList.ToString());
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -217,10 +220,23 @@ namespace POSmachine
             myDateTimeLabel.Text =today.ToString("d");
             this.Controls.Add(myDateTimeLabel);
         }
+        private int tontaiId(int id)
+        {
+            for(int i = 0; i < idItemAndAmountList.Count; i+=2)
+            {
+                if (idItemAndAmountList[i] == id)
+                {
+                    return i;
+                }
+            }
+            return -1;//not found
+        }
         private void addInforItem(int id)
         {
-            if (idItemList.Contains(id))
+            int containId = tontaiId(id);
+            if (containId>=0)
             {
+                idItemAndAmountList[containId + 1] += 1;
                 foreach (Control ctr in myOrderPanel.Controls)
                 {
                     if (ctr.Name == "myOrderBtn-"+id)
@@ -237,7 +253,7 @@ namespace POSmachine
             }
             else
             {
-                idItemList.Add(id);
+                idItemAndAmountList.Add(id); idItemAndAmountList.Add(1);
                 int price=0;string itemName="";
                 string filterQuery = "Select * from Items where Iditem = '" + id + "'";
                 cmd = new SqlCommand(filterQuery, myconn);
@@ -255,7 +271,7 @@ namespace POSmachine
         }
         private void tinhtongtien()
         {
-            int totalCost = 0;
+            totalCost = 0;
             foreach (Control ctr in myOrderPanel.Controls)
             {
                 int sl = 0, dg = 0;
@@ -276,6 +292,7 @@ namespace POSmachine
             {
                 if (ctr.Name == "myTotalCostLabel")
                 {
+                    totalCost -= ((totalCost * gtgiamgia) / 100);
                     string moneyString = String.Format("{0:n0}", totalCost);
                     ctr.Text = moneyString; 
                     break;
@@ -289,8 +306,80 @@ namespace POSmachine
             createOrderPanel();
             this.Controls.Add(myOrderPanel);
             idOrderLocation = -65;
-            idItemList.Clear();
+            idItemAndAmountList.Clear();
             tinhtongtien();
+        }
+
+        private void btngiamgia_Click(object sender, EventArgs e)
+        {
+            if (gtgiamgia != 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("Bạn đã thêm mã giãm giá rồi. Bạn muốn thu hồi?", "Thông báo", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    gtgiamgia = 0;
+                    tinhtongtien();
+                }
+                return;
+            }
+            giamgia giamgia = new giamgia();
+            giamgia.ShowDialog();
+            gtgiamgia = giamgia.gtgiamgia;
+            totalCost -= ((totalCost *gtgiamgia)/100);
+            foreach (Control ctr in this.Controls)
+            {
+                if (ctr.Name == "myTotalCostLabel")
+                {
+                    string moneyString = String.Format("{0:n0}", totalCost);
+                    ctr.Text = moneyString;
+                    break;
+                }
+            }
+
+        }
+
+        private void btninhoadon_Click(object sender, EventArgs e)
+        {
+            //get id dot hien tai
+            string findMaxIdDotQuery = "select max(Iddot) as maxIdDot from Dot";
+            cmd = new SqlCommand(findMaxIdDotQuery, myconn);
+            da = new SqlDataAdapter(findMaxIdDotQuery, myconn);
+            ds = new DataSet();
+            da.Fill(ds);
+            int idDot = Int32.Parse(ds.Tables[0].Rows[0][0].ToString());
+            //them hoa don
+            string insertBillQuery = "insert into Hoadon(Iddot,Tongtien) values('"+ idDot +"','"+ totalCost +"');";
+            cmd = new SqlCommand(insertBillQuery, myconn);
+            cmd.ExecuteNonQuery();
+            //lay id hoa don moi
+            string findMaxIdHoadonQuery = "select max(Idhoadon) as maxIdHoadon from Hoadon";
+            cmd = new SqlCommand(findMaxIdHoadonQuery, myconn);
+            da = new SqlDataAdapter(findMaxIdHoadonQuery, myconn);
+            ds = new DataSet();
+            da.Fill(ds);
+            int idHoadon = Int32.Parse(ds.Tables[0].Rows[0][0].ToString());
+            //them mon
+            string insertItemOrderQuery="";
+            for (int i = 0; i < idItemAndAmountList.Count; i += 2)
+            {
+                int id = idItemAndAmountList[i];
+                int sl = idItemAndAmountList[i + 1];
+                insertItemOrderQuery += "INSERT INTO Itemorder (Iditem, Idngay, Soluong, Khuyenmai,IdHoadon)" + 
+                " VALUES ('"+ id +"', '"+ idDot +"', '"+ sl +"', '"+ gtgiamgia +"','"+ idHoadon +"');";
+            }
+            cmd = new SqlCommand(insertItemOrderQuery, myconn);
+            cmd.ExecuteNonQuery();
+            //excute success;
+            //refresh
+            this.Controls.Remove(myOrderPanel);
+            gtgiamgia = 0;
+            myOrderPanel = new Panel() { Name = "myOrderPanel" };
+            createOrderPanel();
+            this.Controls.Add(myOrderPanel);
+            idOrderLocation = -65;
+            idItemAndAmountList.Clear();
+            tinhtongtien();
+            //
         }
     }
 
