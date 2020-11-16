@@ -14,10 +14,10 @@ namespace POSmachine
     public partial class admin : Form
     {
         //values
-        private int idPotition = -60;//id location
+        private int idPotitionBarRank = -54;//id location
         private int idDot=0;
         private int totalCostDot = 0;
-        int[] idItemList;
+        int[] idItemList;string[] rankItemName;
         //myControl
         ComboBox myIdDotCbb = new ComboBox();
         ComboBox myRankItemsCbb = new ComboBox();
@@ -28,7 +28,12 @@ namespace POSmachine
         Label myRankItemsNameLb;
         Label myRankItemsSellLb;
         Label myRankItemsCostLb;
+        Label labeltextThuHang = new Label();
+        Label labeltextTenMon = new Label();
+        Label labeltextSoLuongBan = new Label();
+        Label labeltextDoanhThu = new Label();
         Panel myRankItemsBarPn;
+
         //connect database
         static string conString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\QLCUAHANG.mdf;Integrated Security=True";
         SqlConnection myconn = new SqlConnection(conString);
@@ -46,7 +51,7 @@ namespace POSmachine
             createGroupLabel();
             showTotalCost();
             showGrowthRate();
-            createGroupRankLabelAndPanel();
+            createLabelText();
         }
         private void showDgvdanhsachmon()
         {
@@ -135,6 +140,7 @@ namespace POSmachine
                 myIdDotCbb.Items.Add(new { Value = idcbb, Text = idDotString });
             }
             myIdDotCbb.SelectedIndex = 0;
+            cbbrankitems.SelectedIndex = 0;//thuoc ve tab xep hang
             tabpdanhsachmonorder.Controls.Add(myIdDotCbb);
             // SelectedIndexChanged event.
             this.myIdDotCbb.SelectedIndexChanged +=
@@ -157,36 +163,62 @@ namespace POSmachine
             myGrowthRateLb.Text = "0";
             myTotalCostLb.Text = "0";
         }
-        private void createGroupRankLabelAndPanel()
+        private void createLabelText()
+        {
+            //create labelText
+            labeltextThuHang = new Label() { Name = "labeltextThuHang" };
+            labeltextThuHang.Location = new Point(3, 8);
+            labeltextThuHang.Size = new System.Drawing.Size(53, 13);
+            labeltextThuHang.Text = "Thứ hạng";
+            pnGroupRankItem.Controls.Add(labeltextThuHang);
+            labeltextTenMon = new Label() { Name = "labeltextTenMon" };
+            labeltextTenMon.Location = new Point(66, 8);
+            labeltextTenMon.Text = "Tên Món";
+            pnGroupRankItem.Controls.Add(labeltextTenMon);
+            labeltextSoLuongBan = new Label() { Name = "labeltextSoLuongBan" };
+            labeltextSoLuongBan.Location = new Point(187, 8);
+            labeltextSoLuongBan.Text = "Số lượng bán";
+            pnGroupRankItem.Controls.Add(labeltextSoLuongBan);
+            labeltextDoanhThu = new Label() { Name = "labeltextDoanhThu" };
+            labeltextDoanhThu.Location = new Point(317, 8);
+            labeltextDoanhThu.Text = "Doanh thu";
+            pnGroupRankItem.Controls.Add(labeltextDoanhThu);
+        }
+        private void createGroupRankLabelAndPanel(int id,int soluong,int danhthu, string itemName)
         {
             //create myRankItemsBarPn
-            myRankItemsBarPn = new Panel() { Name = "myRankItemsBarPn" };
-            myRankItemsBarPn.Location = new Point(3, 24);
-            myRankItemsBarPn.Size = new System.Drawing.Size(396, 72);
+            int distance = 78;
+            myRankItemsBarPn = new Panel() { Name = "myRankItemsBarPn-" + id};
+            myRankItemsBarPn.Location = new Point(3, idPotitionBarRank + distance);
+            myRankItemsBarPn.Size = new System.Drawing.Size(393, 72);
             pnGroupRankItem.Controls.Add(myRankItemsBarPn);
-            //create myRankItemsNameLb
-            myRankItemsNameLb = new Label() { Name = "myRankItemsNameLb", Font = new Font(Label.DefaultFont, FontStyle.Bold) };
-            myRankItemsNameLb.Location = new Point(93, 34);
-            myRankItemsNameLb.Text = "0";
-            //myRankItemsNameLb.Size = new System.Drawing.Size(69, 42);
-            myRankItemsBarPn.Controls.Add(myRankItemsNameLb);
+            idPotitionBarRank += distance;
             //create myRankNumberLb
             myRankNumberLb = new Label() { Name = "myRankNumberLb", Font = new Font(Label.DefaultFont, FontStyle.Bold) };
             myRankNumberLb.Location = new Point(3, 34);
-            myRankNumberLb.Text = "0";
-            //myRankNumberLb.Size = new System.Drawing.Size(69, 42);
+            myRankNumberLb.Text = id+"";
+            myRankNumberLb.Size = new System.Drawing.Size(54, 29);
             myRankItemsBarPn.Controls.Add(myRankNumberLb);
+            //create myRankItemsNameLb
+            myRankItemsNameLb = new Label() { Name = "myRankItemsNameLb"};
+            myRankItemsNameLb.Location = new Point(66, 34);
+            myRankItemsNameLb.Text = itemName;
+            myRankItemsNameLb.Size = new System.Drawing.Size(120, 29);
+            myRankItemsBarPn.Controls.Add(myRankItemsNameLb);
+            //create myRankItemsCostLb
+            myRankItemsCostLb = new Label() { Name = "myRankItemsCostLb"};
+            myRankItemsCostLb.Location = new Point(187, 34);
+            myRankItemsCostLb.Text = soluong+"";
+            myRankItemsCostLb.Size = new System.Drawing.Size(70, 29);
+            myRankItemsBarPn.Controls.Add(myRankItemsCostLb);
             //create myRankItemsSellLb
             myRankItemsSellLb = new Label() { Name = "myRankItemsSellLb", Font = new Font(Label.DefaultFont, FontStyle.Bold) };
-            myRankItemsSellLb.Location = new Point(326, 34);
-            //myRankItemsSellLb.Size = new System.Drawing.Size(69, 42);
+            myRankItemsSellLb.TextAlign = ContentAlignment.TopRight;
+            myRankItemsSellLb.Location = new Point(263, 34);
+            myRankItemsSellLb.Text = String.Format("{0:n0}", danhthu);
+            myRankItemsSellLb.Size = new System.Drawing.Size(111, 29);
             myRankItemsBarPn.Controls.Add(myRankItemsSellLb);
-            //create myRankItemsCostLb
-            myRankItemsCostLb = new Label() { Name = "myRankItemsCostLb", Font = new Font(Label.DefaultFont, FontStyle.Bold) };
-            myRankItemsCostLb.TextAlign = ContentAlignment.TopRight;
-            myRankItemsCostLb.Location = new Point(236, 34);
-            //myRankItemsCostLb.Size = new System.Drawing.Size(69, 42);
-            myRankItemsBarPn.Controls.Add(myRankItemsCostLb);
+
         }
         private void myIdDotCbb_SelectedIndexChanged(object sender,EventArgs e)
         {
@@ -215,16 +247,40 @@ namespace POSmachine
 
         private void btnclickme_Click(object sender, EventArgs e)
         {
-            string getIdItemQuery = "select Iditem from Items;";
+
+        }
+
+        private void btnenddot_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Bạn muốn kết thúc đợt làm việc này, bắt đầu đợt làm việc mới?", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                string insertBillQuery = "insert into Dot(TongTien) values(0);";
+                cmd = new SqlCommand(insertBillQuery, myconn);
+                cmd.ExecuteNonQuery();
+                //refresh
+                tabpdanhsachmonorder.Controls.Remove(myIdDotCbb);
+                tabpdanhsachmonorder.Controls.Remove(myTotalCostLb);
+                tabpdanhsachmonorder.Controls.Remove(myGrowthRateLb);
+                createGroupLabel();
+                createMyIdDotCbb();
+                showDgvdanhsachmon();
+            }
+        }
+        private void showRankItemBarPn(int index)
+        {
+            string getIdItemQuery = "select Iditem,Itemname from Items;";
             cmd = new SqlCommand(getIdItemQuery, myconn);
             da = new SqlDataAdapter(getIdItemQuery, myconn);
             ds = new DataSet();
             da.Fill(ds);
-            idItemList = new int[ds.Tables[0].Rows.Count*3];
+            idItemList = new int[ds.Tables[0].Rows.Count * 3];
+            rankItemName = new string[ds.Tables[0].Rows.Count];
             int idItem = 0;
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 idItem = Int32.Parse(ds.Tables[0].Rows[i][0].ToString());
+                rankItemName[i] = ds.Tables[0].Rows[i][1].ToString();
                 idItemList[i * 3] = idItem;
             }
             //
@@ -233,7 +289,7 @@ namespace POSmachine
             da = new SqlDataAdapter(getTotalSellQuery, myconn);
             ds = new DataSet();
             da.Fill(ds);
-            int sl = 0, cost = 0,distance = -2,gtgiamgia = 0;
+            int sl = 0, cost = 0, gtgiamgia = 0;
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 idItem = Int32.Parse(ds.Tables[0].Rows[i][1].ToString());
@@ -247,24 +303,22 @@ namespace POSmachine
                     idItemList[pos + 2] += (sl * cost) - (((sl * cost) * gtgiamgia) / 100);
                 }
             }
-            MessageBox.Show(string.Join(",",idItemList));
-        }
-
-        private void btnenddot_Click(object sender, EventArgs e)
-        {
-            DialogResult dialogResult = MessageBox.Show("Bạn muốn kết thúc đợt làm việc này, bắt đầu đợt làm việc mới?", "Thông báo", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
+            if(index == 0)
             {
-                string insertBillQuery = "insert into Dot(TongTien) values(0);";
-                cmd = new SqlCommand(insertBillQuery, myconn);
-                cmd.ExecuteNonQuery();
-                //refesh
-                tabpdanhsachmonorder.Controls.Remove(myIdDotCbb);
-                tabpdanhsachmonorder.Controls.Remove(myTotalCostLb);
-                tabpdanhsachmonorder.Controls.Remove(myGrowthRateLb);
-                createGroupLabel();
-                createMyIdDotCbb();
-                showDgvdanhsachmon();
+                sortForMoney();
+            }
+            else
+            {
+                sortForAmount();
+            }
+            //refesh bar panel
+            pnGroupRankItem.Controls.Clear();
+            createLabelText();
+            idPotitionBarRank = -54;
+            //create again
+            for (int i = 0; i < idItemList.Length; i += 3)
+            {
+                createGroupRankLabelAndPanel(i / 3 + 1, idItemList[i + 1], idItemList[i + 2], rankItemName[i / 3]);
             }
         }
         private int findValue(int id)
@@ -277,6 +331,51 @@ namespace POSmachine
                 }
             }
             return -1;
+        }
+        private void sortForMoney()
+        {
+            for(int i = 2; i < idItemList.Length; i+=3)
+            {
+                for(int j = i + 3; j < idItemList.Length; j+=3)
+                {
+                    if (idItemList[j] > idItemList[i])
+                    {
+                        swap(j-2, i-2);swap(j-1, i-1);swap(j, i);
+                        swapString(j/3,i/3);
+                    }
+                }
+            }
+        }
+        private void sortForAmount()
+        {
+            for (int i = 1; i < idItemList.Length; i += 3)
+            {
+                for (int j = i + 3; j < idItemList.Length; j += 3)
+                {
+                    if (idItemList[j] > idItemList[i])
+                    {
+                        swap(j - 1, i - 1); swap(j, i); swap(j + 1, i + 1);
+                        swapString(j / 3, i / 3);
+                    }
+                }
+            }
+        }
+        private void swap(int a,int b)
+        {
+            int temp = idItemList[a];
+            idItemList[a] = idItemList[b];
+            idItemList[b] = temp;
+        }
+        private void swapString(int a, int b)
+        {
+            string temp = rankItemName[a];
+            rankItemName[a] = rankItemName[b];
+            rankItemName[b] = temp;
+        }
+
+        private void cbbrankitems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            showRankItemBarPn(cbbrankitems.SelectedIndex);
         }
     }
 }
