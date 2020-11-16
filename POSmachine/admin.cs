@@ -220,28 +220,31 @@ namespace POSmachine
             da = new SqlDataAdapter(getIdItemQuery, myconn);
             ds = new DataSet();
             da.Fill(ds);
-            idItemList = new int[ds.Tables[0].Rows.Count*2];
+            idItemList = new int[ds.Tables[0].Rows.Count*3];
             int idItem = 0;
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 idItem = Int32.Parse(ds.Tables[0].Rows[i][0].ToString());
+                idItemList[i * 3] = idItem;
             }
             //
             string getTotalSellQuery = "select * from Itemorder,Items where Itemorder.Iditem = Items.Iditem order by Items.Iditem; ";
-            cmd = new SqlCommand(getIdItemQuery, myconn);
-            da = new SqlDataAdapter(getIdItemQuery, myconn);
+            cmd = new SqlCommand(getTotalSellQuery, myconn);
+            da = new SqlDataAdapter(getTotalSellQuery, myconn);
             ds = new DataSet();
             da.Fill(ds);
-            int sl = 0, cost = 0,distance = -2;
+            int sl = 0, cost = 0,distance = -2,gtgiamgia = 0;
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 idItem = Int32.Parse(ds.Tables[0].Rows[i][1].ToString());
                 sl = Int32.Parse(ds.Tables[0].Rows[i][4].ToString());
                 cost = Int32.Parse(ds.Tables[0].Rows[i][8].ToString());
+                gtgiamgia = Int32.Parse(ds.Tables[0].Rows[i][2].ToString());
                 int pos = findValue(idItem);
                 if (pos >= 0)
                 {
                     idItemList[pos + 1] += sl;
+                    idItemList[pos + 2] += (sl * cost) - (((sl * cost) * gtgiamgia) / 100);
                 }
             }
             MessageBox.Show(string.Join(",",idItemList));
