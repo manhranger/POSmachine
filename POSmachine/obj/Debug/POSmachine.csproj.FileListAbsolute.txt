@@ -26,3 +26,5 @@ C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\obj\Debug\POSm
 C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\obj\Debug\POSmachine.pdb
 C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\obj\Debug\POSmachine.admin.resources
 C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\obj\Debug\POSmachine.giamgia.resources
+C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\obj\Debug\POSmachine.CreateEmployee.resources
+C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\obj\Debug\POSmachine.EditEmployee.resources

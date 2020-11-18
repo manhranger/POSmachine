@@ -74,7 +74,7 @@
             this.tbmatkhau.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbmatkhau.Location = new System.Drawing.Point(275, 118);
             this.tbmatkhau.Name = "tbmatkhau";
-            this.tbmatkhau.PasswordChar = '*';
+            this.tbmatkhau.PasswordChar = '•';
             this.tbmatkhau.Size = new System.Drawing.Size(256, 22);
             this.tbmatkhau.TabIndex = 4;
             // 
@@ -147,6 +147,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

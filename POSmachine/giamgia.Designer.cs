@@ -118,6 +118,7 @@
             this.Controls.Add(this.btn20percent);
             this.Controls.Add(this.label2);
             this.Name = "giamgia";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "giamgia";
             this.Load += new System.EventHandler(this.giamgia_Load);
             this.ResumeLayout(false);

@@ -46,10 +46,15 @@
             this.cbbrankitems = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.pnGroupRankItem = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
             this.tabbnhanvien = new System.Windows.Forms.TabPage();
+            this.btnthemnv = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.pnGroupAccNv = new System.Windows.Forms.Panel();
             this.tabbdanhsachmon = new System.Windows.Forms.TabPage();
             this.btnclickme = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabbthongke.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -58,6 +63,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvdanhsachmon)).BeginInit();
             this.tabpxephangmon.SuspendLayout();
             this.pnGroupRankItem.SuspendLayout();
+            this.tabbnhanvien.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnthoat
@@ -248,9 +254,23 @@
             this.pnGroupRankItem.Size = new System.Drawing.Size(402, 271);
             this.pnGroupRankItem.TabIndex = 0;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(-2, 11);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 13);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Thứ hạng";
+            // 
             // tabbnhanvien
             // 
             this.tabbnhanvien.BackColor = System.Drawing.SystemColors.Control;
+            this.tabbnhanvien.Controls.Add(this.btnthemnv);
+            this.tabbnhanvien.Controls.Add(this.label8);
+            this.tabbnhanvien.Controls.Add(this.label7);
+            this.tabbnhanvien.Controls.Add(this.label6);
+            this.tabbnhanvien.Controls.Add(this.pnGroupAccNv);
             this.tabbnhanvien.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabbnhanvien.Location = new System.Drawing.Point(4, 29);
             this.tabbnhanvien.Name = "tabbnhanvien";
@@ -258,6 +278,55 @@
             this.tabbnhanvien.Size = new System.Drawing.Size(661, 309);
             this.tabbnhanvien.TabIndex = 1;
             this.tabbnhanvien.Text = "Nhân viên";
+            // 
+            // btnthemnv
+            // 
+            this.btnthemnv.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnthemnv.Location = new System.Drawing.Point(537, 9);
+            this.btnthemnv.Name = "btnthemnv";
+            this.btnthemnv.Size = new System.Drawing.Size(118, 23);
+            this.btnthemnv.TabIndex = 0;
+            this.btnthemnv.Text = "Thêm nhân viên";
+            this.btnthemnv.UseVisualStyleBackColor = true;
+            this.btnthemnv.Click += new System.EventHandler(this.btnthemnv_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(389, 16);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(62, 16);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "Mật khẩu";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(190, 16);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(89, 16);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Tên tài khoản";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(6, 16);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(92, 16);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Tên nhân viên";
+            // 
+            // pnGroupAccNv
+            // 
+            this.pnGroupAccNv.AutoScroll = true;
+            this.pnGroupAccNv.Location = new System.Drawing.Point(4, 35);
+            this.pnGroupAccNv.Name = "pnGroupAccNv";
+            this.pnGroupAccNv.Size = new System.Drawing.Size(651, 271);
+            this.pnGroupAccNv.TabIndex = 0;
             // 
             // tabbdanhsachmon
             // 
@@ -272,22 +341,14 @@
             // 
             // btnclickme
             // 
+            this.btnclickme.BackColor = System.Drawing.Color.Gainsboro;
             this.btnclickme.Location = new System.Drawing.Point(512, 346);
             this.btnclickme.Name = "btnclickme";
             this.btnclickme.Size = new System.Drawing.Size(75, 23);
             this.btnclickme.TabIndex = 3;
             this.btnclickme.Text = "click me";
-            this.btnclickme.UseVisualStyleBackColor = true;
+            this.btnclickme.UseVisualStyleBackColor = false;
             this.btnclickme.Click += new System.EventHandler(this.btnclickme_Click);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(-2, 11);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 13);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Thứ hạng";
             // 
             // admin
             // 
@@ -299,6 +360,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnthoat);
             this.Name = "admin";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "admin";
             this.tabControl1.ResumeLayout(false);
             this.tabbthongke.ResumeLayout(false);
@@ -311,6 +373,8 @@
             this.tabpxephangmon.PerformLayout();
             this.pnGroupRankItem.ResumeLayout(false);
             this.pnGroupRankItem.PerformLayout();
+            this.tabbnhanvien.ResumeLayout(false);
+            this.tabbnhanvien.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -335,5 +399,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel pnGroupRankItem;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Panel pnGroupAccNv;
+        private System.Windows.Forms.Button btnthemnv;
     }
 }

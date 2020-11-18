@@ -11,10 +11,11 @@ using System.Windows.Forms;
 
 namespace POSmachine
 {
-    public partial class admin : Form
+    public partial class admin: Form
     {
         //values
         private int idPotitionBarRank = -54;//id location
+        private int idPotitionNvBar = -69;//id location
         private int idDot=0;
         private int totalCostDot = 0;
         int[] idItemList;string[] rankItemName;
@@ -32,7 +33,15 @@ namespace POSmachine
         Label labeltextTenMon = new Label();
         Label labeltextSoLuongBan = new Label();
         Label labeltextDoanhThu = new Label();
+        Label myNameNvLb;
+        Label myAccNvLb;
+        Label myPassNvLb;
+        Button myEditNvBtn;
+        Button myDelNvBtn;
         Panel myRankItemsBarPn;
+        Panel myNhanvienAccBarPn;
+        //object
+        static nhanvienConfig[] nvList;
 
         //connect database
         static string conString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\QLCUAHANG.mdf;Integrated Security=True";
@@ -52,6 +61,7 @@ namespace POSmachine
             showTotalCost();
             showGrowthRate();
             createLabelText();
+            showAccNvPanel();
         }
         private void showDgvdanhsachmon()
         {
@@ -109,6 +119,25 @@ namespace POSmachine
             }
             int growthRate =((totalCostDot * 100) / PreviousTotalCost) - 100;
             myGrowthRateLb.Text = growthRate+"%";
+        }
+        private void showAccNvPanel()
+        {
+            int role = 0;
+            string getDotQuery = "select Id from Account where Role = "+ role +"";
+            cmd = new SqlCommand(getDotQuery, myconn);
+            da = new SqlDataAdapter(getDotQuery, myconn);
+            dt = new DataTable();
+            ds = new DataSet();
+            da.Fill(ds);
+            int id = 0;
+            nvList = new nhanvienConfig[ds.Tables[0].Rows.Count];
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
+                nvList[i] = new nhanvienConfig();
+                id = Int32.Parse(ds.Tables[0].Rows[i][0].ToString());
+                nvList[i].getInforWithId(id);
+                createNhanvienAccountPanelAndLabel(id, nvList[i].getName(), nvList[i].getUsername(), nvList[i].getPassword());
+            }
         }
         private void createMyIdDotCbb()
         {
@@ -220,6 +249,56 @@ namespace POSmachine
             myRankItemsBarPn.Controls.Add(myRankItemsSellLb);
 
         }
+        private void createNhanvienAccountPanelAndLabel(int id,string name,string username,string password)
+        {
+            int distance = 72;
+            //create myNhanvienAccBarPn
+            myNhanvienAccBarPn = new Panel() { Name = "myNhanvienAccBarPn-"+id,
+            Font = new Font("Microsoft Sans Serif",10, FontStyle.Regular)};
+            myNhanvienAccBarPn.Location = new Point(0, idPotitionNvBar+distance);
+            myNhanvienAccBarPn.BackColor = Color.White;
+            myNhanvienAccBarPn.Size = new System.Drawing.Size(648, 66);
+            pnGroupAccNv.Controls.Add(myNhanvienAccBarPn);
+            //create myNameNvLb
+            myNameNvLb = new Label() { Name = "myNameNvLb-" + id };
+            myNameNvLb.Text = name;
+            myNameNvLb.Location = new Point(3, 25);
+            myNameNvLb.Size = new System.Drawing.Size(186, 25);
+            myNhanvienAccBarPn.Controls.Add(myNameNvLb);
+            //create myAccNvLb
+            myAccNvLb = new Label() { Name = "myAccNvLb-" + id };
+            myAccNvLb.Text = username;
+            myAccNvLb.Location = new Point(186, 25);
+            myAccNvLb.Size = new System.Drawing.Size(186, 25);
+            myNhanvienAccBarPn.Controls.Add(myAccNvLb);
+            //create myPassNvLb
+            myPassNvLb = new Label() { Name = "myPassNvLb-" + id };
+            myPassNvLb.Text = password;
+            myPassNvLb.Location = new Point(385, 25);
+            myPassNvLb.Size = new System.Drawing.Size(143, 26);
+            myNhanvienAccBarPn.Controls.Add(myPassNvLb);
+            //create myEditNvBtn
+            myEditNvBtn = new Button() { Name = "myEditNvBtn-"+id ,
+            Font = new Font("Microsoft Sans Serif", 8, FontStyle.Regular),
+            BackColor = Color.Gainsboro};
+            myEditNvBtn.Text = "Chỉnh sửa nhân viên";
+            myEditNvBtn.Location = new Point(533, 2);
+            myEditNvBtn.Size = new System.Drawing.Size(90, 40);
+            myEditNvBtn.Click += new EventHandler(myEditNvBtn_Click);
+            myNhanvienAccBarPn.Controls.Add(myEditNvBtn);
+            //create myDelNvBtn
+            myDelNvBtn = new Button() { Name = "myDelNvBtn-"+id,
+            Font = new Font("Microsoft Sans Serif", 8, FontStyle.Regular),
+            BackColor = Color.Gainsboro};
+            myDelNvBtn.Text = "Xóa nhân viên";
+            myDelNvBtn.Location = new Point(533, 40);
+            myDelNvBtn.Size = new System.Drawing.Size(90, 23);
+            myDelNvBtn.Click += new EventHandler(myDelNvBtn_Click);
+            myNhanvienAccBarPn.Controls.Add(myDelNvBtn);
+            //
+            idPotitionNvBar += distance; 
+
+        }
         private void myIdDotCbb_SelectedIndexChanged(object sender,EventArgs e)
         {
             ComboBox mycbb = (ComboBox)sender;
@@ -227,6 +306,29 @@ namespace POSmachine
             showDgvdanhsachmon();
             showTotalCost();
             showGrowthRate();
+        }
+        private void myDelNvBtn_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Bạn có chắc muốn xóa tài khoản .. không", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                //do something
+            }
+        }
+        
+        private void myEditNvBtn_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            String name = btn.Name;
+            int id = Int32.Parse(name.Substring(name.IndexOf("-") + 1, name.Length - name.IndexOf("-") - 1));
+            for (int i = 0; i < nvList.Length; i++)
+            {
+                if (nvList[i].getId() == id)
+                {
+                    EditEmployee editEp = new EditEmployee(id, nvList[i].getName(), nvList[i].getUsername(), nvList[i].getPassword());
+                    editEp.ShowDialog();
+                }
+            }
         }
         private void btnthoat_Click(object sender, EventArgs e)
         {
@@ -247,7 +349,7 @@ namespace POSmachine
 
         private void btnclickme_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void btnenddot_Click(object sender, EventArgs e)
@@ -376,6 +478,29 @@ namespace POSmachine
         private void cbbrankitems_SelectedIndexChanged(object sender, EventArgs e)
         {
             showRankItemBarPn(cbbrankitems.SelectedIndex);
+        }
+
+        private void btnthemnv_Click(object sender, EventArgs e)
+        {
+            /*CreateEmployee ep = new CreateEmployee();
+            ep.ShowDialog();
+            gtgiamgia = ep.gtgiamgia;
+            totalCost -= ((totalCost * gtgiamgia) / 100);*/
+            CreateEmployee ep = new CreateEmployee();
+            ep.ShowDialog();
+            bool isInsert = ep.isInsert;
+            if (isInsert)
+            {
+                //refesh accPanel
+                idPotitionNvBar = -69;//id location
+                pnGroupAccNv.Controls.Clear();
+                showAccNvPanel();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
