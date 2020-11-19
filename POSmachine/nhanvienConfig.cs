@@ -77,6 +77,20 @@ namespace POSmachine
                 return false;
             }
         }
+        public bool excuteUpdateQuery()
+        {
+            string UpdateNvQuery = "update Account set Name = '"+ name +"',Username = '"+ username +"',Password = '"+ password +"' where Id = "+ id +" ";
+            cmd = new SqlCommand(UpdateNvQuery, myconn);
+            try
+            {
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public string deleteQuery(int id)
         {
             string res = "delete from Account where id = "+ id +"";

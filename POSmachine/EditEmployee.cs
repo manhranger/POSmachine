@@ -16,6 +16,8 @@ namespace POSmachine
         string name;
         string username;
         string password;
+        public bool isUpdate;
+        static nhanvienConfig nv;
         public EditEmployee(int id,string name,string username,string password)
         {
             this.id = id;
@@ -27,7 +29,23 @@ namespace POSmachine
 
         private void btndongy_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(password + "-");
+            nv = new nhanvienConfig();
+            name = txtbtennhanvien.Text;
+            username = txttaikhoan.Text;
+            password = txtmatkhau.Text;
+            int role = 0;
+            nv.addValue(id,name,username,password,role);
+            if (nv.excuteUpdateQuery())
+            {
+                MessageBox.Show("Chỉnh sửa thành công!");
+                isUpdate = true;
+                this.Close();
+            }
+            else
+            {
+                lbThongbao.Text = "Có lỗi!";
+                isUpdate = false;
+            }
         }
 
         private void lbThongbao_Click(object sender, EventArgs e)

@@ -327,6 +327,13 @@ namespace POSmachine
                 {
                     EditEmployee editEp = new EditEmployee(id, nvList[i].getName(), nvList[i].getUsername(), nvList[i].getPassword());
                     editEp.ShowDialog();
+                    bool isUpdate = editEp.isUpdate;
+                    if (isUpdate) {
+                        //refesh accPanel
+                        idPotitionNvBar = -69;//id location
+                        pnGroupAccNv.Controls.Clear();
+                        showAccNvPanel();
+                    }
                 }
             }
         }

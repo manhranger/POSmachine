@@ -191,6 +191,7 @@
             this.Controls.Add(this.lbChangeText);
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "nhanvien";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "nhanvien";
             this.Load += new System.EventHandler(this.nhanvien_Load);
             this.panel1.ResumeLayout(false);
