@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnthoat = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabbthongke = new System.Windows.Forms.TabPage();
@@ -46,7 +46,6 @@
             this.cbbrankitems = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.pnGroupRankItem = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
             this.tabbnhanvien = new System.Windows.Forms.TabPage();
             this.btnthemnv = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
@@ -67,7 +66,6 @@
             this.pndanhsachmon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvdanhsachmon)).BeginInit();
             this.tabpxephangmon.SuspendLayout();
-            this.pnGroupRankItem.SuspendLayout();
             this.tabbnhanvien.SuspendLayout();
             this.tabbdanhsachmon.SuspendLayout();
             this.SuspendLayout();
@@ -185,33 +183,33 @@
             // 
             // dgvdanhsachmon
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvdanhsachmon.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvdanhsachmon.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvdanhsachmon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvdanhsachmon.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvdanhsachmon.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvdanhsachmon.Location = new System.Drawing.Point(-1, -1);
             this.dgvdanhsachmon.Name = "dgvdanhsachmon";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvdanhsachmon.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvdanhsachmon.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvdanhsachmon.Size = new System.Drawing.Size(484, 285);
             this.dgvdanhsachmon.TabIndex = 0;
             // 
@@ -230,6 +228,7 @@
             // 
             // cbbrankitems
             // 
+            this.cbbrankitems.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbrankitems.FormattingEnabled = true;
             this.cbbrankitems.Items.AddRange(new object[] {
             "Doanh thu",
@@ -254,20 +253,10 @@
             // 
             this.pnGroupRankItem.AutoScroll = true;
             this.pnGroupRankItem.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pnGroupRankItem.Controls.Add(this.label5);
             this.pnGroupRankItem.Location = new System.Drawing.Point(6, 6);
             this.pnGroupRankItem.Name = "pnGroupRankItem";
             this.pnGroupRankItem.Size = new System.Drawing.Size(402, 271);
             this.pnGroupRankItem.TabIndex = 0;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(-2, 11);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 13);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Thứ hạng";
             // 
             // tabbnhanvien
             // 
@@ -358,6 +347,7 @@
             this.btnCreateItem.TabIndex = 4;
             this.btnCreateItem.Text = "Thêm món";
             this.btnCreateItem.UseVisualStyleBackColor = true;
+            this.btnCreateItem.Click += new System.EventHandler(this.btnCreateItem_Click);
             // 
             // label11
             // 
@@ -428,8 +418,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvdanhsachmon)).EndInit();
             this.tabpxephangmon.ResumeLayout(false);
             this.tabpxephangmon.PerformLayout();
-            this.pnGroupRankItem.ResumeLayout(false);
-            this.pnGroupRankItem.PerformLayout();
             this.tabbnhanvien.ResumeLayout(false);
             this.tabbnhanvien.PerformLayout();
             this.tabbdanhsachmon.ResumeLayout(false);
@@ -457,7 +445,6 @@
         private System.Windows.Forms.ComboBox cbbrankitems;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel pnGroupRankItem;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;

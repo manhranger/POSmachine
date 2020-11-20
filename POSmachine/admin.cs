@@ -107,7 +107,7 @@ namespace POSmachine
                 price = Int32.Parse(ds.Tables[0].Rows[i][0].ToString());
                 totalCostDot += price;
             }
-            String totalCostString = String.Format("{0:n0}", totalCostDot); ;
+            String totalCostString = String.Format("{0:n0}", totalCostDot);
             myTotalCostLb.Text = totalCostString;
         }
         private void showGrowthRate()
@@ -157,6 +157,7 @@ namespace POSmachine
             myIdDotCbb = new ComboBox() { Name = "myIdDotCbb" };
             myIdDotCbb.Location = new Point(580, 6);
             myIdDotCbb.Size = new System.Drawing.Size(65, 21);
+            myIdDotCbb.DropDownStyle = ComboBoxStyle.DropDownList;
             //add data
             myIdDotCbb.DisplayMember = "Text";
             myIdDotCbb.ValueMember = "Value";
@@ -264,10 +265,10 @@ namespace POSmachine
                 Font = new Font("Microsoft Sans Serif", 8, FontStyle.Regular),
                 BackColor = Color.Gainsboro
             };
-            myEditItemBtn.Text = "Chỉnh sửa nhân viên";
+            myEditItemBtn.Text = "Chỉnh sửa món này";
             myEditItemBtn.Location = new Point(567, 3);
             myEditItemBtn.Size = new System.Drawing.Size(75, 38);
-            myEditItemBtn.Click += new EventHandler(myEditNvBtn_Click);
+            myEditItemBtn.Click += new EventHandler(myItemEditBtn_Click);
             myItemsBarPn.Controls.Add(myEditItemBtn);
             //create myDelItemBtn
             myDelItemBtn = new Button()
@@ -276,13 +277,67 @@ namespace POSmachine
                 Font = new Font("Microsoft Sans Serif", 8, FontStyle.Regular),
                 BackColor = Color.Gainsboro
             };
-            myDelItemBtn.Text = "Xóa nhân viên";
+            myDelItemBtn.Text = "Xóa món này";
             myDelItemBtn.Location = new Point(567, 43);
             myDelItemBtn.Size = new System.Drawing.Size(75, 35);
-            myDelItemBtn.Click += new EventHandler(myDelNvBtn_Click);
+            myDelItemBtn.Click += new EventHandler(myDelItemBtn_Click);
             myItemsBarPn.Controls.Add(myDelItemBtn);
             //
             idPotitionItemsBar += distance;
+        }
+        private void myItemEditBtn_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            String name = btn.Name;
+            int id = Int32.Parse(name.Substring(name.IndexOf("-") + 1, name.Length - name.IndexOf("-") - 1));
+            for (int i = 0; i < dishInfo.Count; i += 6)// dishInfor (id - itemName - category - detailItem - price - used)
+            {
+                if (Int32.Parse(dishInfo[i].ToString()) == id)
+                {
+                    editItem editItem = new editItem(
+                    Int32.Parse(dishInfo[i].ToString()),
+                    dishInfo[i+1].ToString(),
+                    dishInfo[i + 2].ToString(),
+                    Int32.Parse(dishInfo[i + 4].ToString()),
+                    dishInfo[i + 3].ToString());
+                    editItem.ShowDialog();
+                    bool isEdit = editItem.isEdit;
+                    if (isEdit)
+                    {
+                        //refesh them
+                        pnListItemsGroup.Controls.Clear();
+                        idPotitionItemsBar = -84;//id location
+                        createListItemBarPn();
+                    }
+                    return;
+                }
+            }
+        }
+        private void myDelItemBtn_Click(object sender,EventArgs e)
+        {
+            Button btn = (Button)sender;
+            String name = btn.Name;
+            int id = Int32.Parse(name.Substring(name.IndexOf("-") + 1, name.Length - name.IndexOf("-") - 1));
+            for (int i = 0; i < dishInfo.Count; i+=6)
+            {
+                if (Int32.Parse(dishInfo[i].ToString()) == id)
+                {
+                    DialogResult dialogResult = MessageBox.Show("Bạn có chắc muốn xóa món " +
+                    dishInfo[i+1].ToString() + " này không", "Thông báo", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        if (!dish.delDish(Int32.Parse(dishInfo[i].ToString())))
+                        {
+                            MessageBox.Show("Có lỗi!!");
+                        }
+                        //refesh them
+                        pnListItemsGroup.Controls.Clear();
+                        idPotitionItemsBar = -84;//id location
+                        createListItemBarPn();
+                    }
+                    return;
+                }
+            }
         }
         private void createGroupRankLabelAndPanel(int id,int soluong,int danhthu, string itemName)
         {
@@ -369,6 +424,22 @@ namespace POSmachine
             //
             idPotitionNvBar += distance; 
 
+        }
+        private void createListItemBarPn()
+        {
+            dish = new dishes();
+            dishInfo = dish.showInfor();
+            int id = 0, cost = 0;
+            string itemName = "", categoryItem = "", detailItem = "";
+            for (int i = 0; i < dishInfo.Count; i += 6)
+            {
+                id = Int32.Parse(dishInfo[i].ToString());
+                itemName = dishInfo[i + 1].ToString();
+                categoryItem = dishInfo[i + 2].ToString();
+                detailItem = dishInfo[i + 3].ToString();
+                cost = Int32.Parse(dishInfo[i + 4].ToString());
+                createGroupItemLabel(id, itemName, cost, detailItem);
+            }
         }
         private void myIdDotCbb_SelectedIndexChanged(object sender,EventArgs e)
         {
@@ -599,18 +670,21 @@ namespace POSmachine
 
         private void admin_Load(object sender, EventArgs e)
         {
-            dish = new dishes();
-            dishInfo = dish.showInfor();
-            int id=0, cost=0;
-            string itemName="",categoryItem="",detailItem="";
-            for(int i = 0; i < dishInfo.Count; i += 6)
+            createListItemBarPn();
+        }
+
+        private void btnCreateItem_Click(object sender, EventArgs e)
+        {
+            createItems it = new createItems();
+            it.ShowDialog();
+            bool isUpdate = it.isUpdate;
+            if (isUpdate)
             {
-                id = Int32.Parse(dishInfo[i].ToString());
-                itemName = dishInfo[i+1].ToString();
-                categoryItem = dishInfo[i+2].ToString();
-                detailItem = dishInfo[i + 3].ToString();
-                cost = Int32.Parse(dishInfo[i+4].ToString());
-                createGroupItemLabel(id,itemName,cost,detailItem);
+                //refesh them
+                pnListItemsGroup.Controls.Clear();
+                idPotitionItemsBar = -84;//id location
+                createListItemBarPn();
+
             }
         }
     }

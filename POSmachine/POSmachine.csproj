@@ -75,12 +75,24 @@
     <Compile Include="CreateEmployee.Designer.cs">
       <DependentUpon>CreateEmployee.cs</DependentUpon>
     </Compile>
+    <Compile Include="createItems.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="createItems.Designer.cs">
+      <DependentUpon>createItems.cs</DependentUpon>
+    </Compile>
     <Compile Include="dishes.cs" />
     <Compile Include="EditEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EditEmployee.Designer.cs">
       <DependentUpon>EditEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="editItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="editItem.Designer.cs">
+      <DependentUpon>editItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -112,8 +124,14 @@
     <EmbeddedResource Include="CreateEmployee.resx">
       <DependentUpon>CreateEmployee.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="createItems.resx">
+      <DependentUpon>createItems.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditEmployee.resx">
       <DependentUpon>EditEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="editItem.resx">
+      <DependentUpon>editItem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

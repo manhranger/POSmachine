@@ -12,6 +12,7 @@ namespace POSmachine
     class dishes
     {
         private int id;
+        private int idCategory;
         private string dishName;
         private string dishCategory;
         private string dishDetail;
@@ -33,9 +34,9 @@ namespace POSmachine
             }
             catch { }
         }
-        public int getId()
+        public int getIdCategory()
         {
-            return id;
+            return idCategory;
         }
         public string getDishName()
         {
@@ -65,7 +66,7 @@ namespace POSmachine
             ds = new DataSet();
             da.Fill(ds);
             string[] res = new string[ds.Tables[0].Rows.Count];
-            for(int i = 0; i < ds.Tables[0].Rows.Count;i++)
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 res[i] = ds.Tables[0].Rows[i][0].ToString();
             }
@@ -80,7 +81,7 @@ namespace POSmachine
             da = new SqlDataAdapter(getItemQuery, myconn);
             ds = new DataSet();
             da.Fill(ds);
-            for(int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 res.Add(Int32.Parse(ds.Tables[0].Rows[i][2].ToString()));
                 res.Add(ds.Tables[0].Rows[i][3].ToString());
@@ -89,6 +90,87 @@ namespace POSmachine
                 res.Add(Int32.Parse(ds.Tables[0].Rows[i][4].ToString()));
                 res.Add(true);
             }
+            return res;
+        }
+        public void setValue(int id,string itemName,int price,string category,string itemDetail)
+        {
+            this.id = id;
+            this.dishName = itemName;
+            this.price = price;
+            this.dishCategory = category;
+            this.dishDetail = itemDetail;
+        }
+        public bool updateDish()
+        {
+            idCategory = getIdCategory(dishCategory);
+            string insertNvQuery = "update Items set " +
+            "Itemname = N'"+ dishName +"',Price = "+ price +",Idchude ='"+ idCategory +"' ,describe = N'"+ dishDetail +"' where Iditem="+ id +";";
+            cmd = new SqlCommand(insertNvQuery, myconn);
+            try
+            {
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool insertDish(string itemName, int cost, string itemDetail, string categoryName)
+        {
+            idCategory = getIdCategory(categoryName);
+            string insertNvQuery = "insert into Items(Itemname,Price,describe,Idchude,Used)" +
+            "values(N'" + itemName + "'," + cost + ",N'" + itemDetail + "'," + idCategory + ",1);";
+            cmd = new SqlCommand(insertNvQuery, myconn);
+            try
+            {
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool delDish(int id)
+        {
+            string DelNvQuery = "delete from Items where Iditem = "+ id +";";
+            cmd = new SqlCommand(DelNvQuery, myconn);
+            try
+            {
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public string[] getCategoriesNameList()
+        {
+            string getIdCategoryQuery = "select Tenchude from Chude";
+            cmd = new SqlCommand(getIdCategoryQuery, myconn);
+            da = new SqlDataAdapter(getIdCategoryQuery, myconn);
+            ds = new DataSet();
+            da.Fill(ds);
+            string[] res = new string[ds.Tables[0].Rows.Count];
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
+                res[i] = ds.Tables[0].Rows[i][0].ToString();
+            }
+            return res;
+            
+
+        }
+        private int getIdCategory(string categoryName)
+        {
+            string getIdCategoryQuery = "select Idchude from Chude where Tenchude = N'" + categoryName + "'";
+            cmd = new SqlCommand(getIdCategoryQuery, myconn);
+            da = new SqlDataAdapter(getIdCategoryQuery, myconn);
+            ds = new DataSet();
+            da.Fill(ds);
+            int res = Int32.Parse(ds.Tables[0].Rows[0][0].ToString());
             return res;
         }
     }

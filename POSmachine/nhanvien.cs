@@ -65,9 +65,10 @@ namespace POSmachine
                 id = Int32.Parse(ds.Tables[0].Rows[i][0].ToString());
                 itemName = ds.Tables[0].Rows[i][1].ToString();
                 price = Int32.Parse(ds.Tables[0].Rows[i][2].ToString());
-                //set proberties
+                //set properties
                 Label lbItemName = new Label { Name = "lbItemName-" + id, Text = itemName };
                 lbItemName.Location = new Point(5, 25);
+                lbItemName.AutoSize = true;
                 Label lbItemPrice = new Label { Name = "lbItemPrice-" + id, Text = String.Format("{0:n0}", price) + "đ"};
                 lbItemPrice.Location = new Point(180, 25);
                 lbItemPrice.TextAlign = ContentAlignment.TopRight;
@@ -109,7 +110,11 @@ namespace POSmachine
             myOrderBtn.BackColor = Color.White;
             myOrderBtn.Controls.Add(lbOrderName); myOrderBtn.Controls.Add(lbOrderPrice);
             myOrderBtn.Controls.Add(lbOrderCount);
+            // fix error
+            myOrderPanel.VerticalScroll.Value = 0; myOrderPanel.HorizontalScroll.Value = 0;
             myOrderPanel.Controls.Add(myOrderBtn);
+            myOrderPanel.ScrollControlIntoView(myOrderBtn);
+            //
             idOrderLocation += distance;
         }
         private void createCategoriesBt(string categoryName)
@@ -168,42 +173,20 @@ namespace POSmachine
             {
                 createCategoriesBt(categories[i]);
             }
+            //
+            string chude = categories[0];
+            showItems(chude);
             InitializeComponent();
         }
 
         private void btnclick_Click(object sender, EventArgs e)
         {
-            //showItemOrder(1,"hahah",1);
             MessageBox.Show(idItemAndAmountList.ToString());
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void btntrasua_Click(object sender, EventArgs e)
-        {
-            string chude = "Trà sữa";
-            showItems(chude);
-        }
-
-        private void btntratraicay_Click(object sender, EventArgs e)
-        {
-            string chude = "Trà trái cây";
-            showItems(chude);
-        }
-
-        private void btncaphe_Click(object sender, EventArgs e)
-        {
-            string chude = "Cà phê";
-            showItems(chude);
-        }
-
-        private void btndoannhanh_Click(object sender, EventArgs e)
-        {
-            string chude = "Đồ ăn nhanh";
-            showItems(chude);
         }
 
         private void btndeleteI_Click(object sender, EventArgs e)
@@ -288,11 +271,8 @@ namespace POSmachine
                 dt = new DataTable();
                 ds = new DataSet();
                 da.Fill(ds);
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                {
-                    itemName = ds.Tables[0].Rows[i][1].ToString();
-                    price = Int32.Parse(ds.Tables[0].Rows[i][2].ToString());
-                }
+                itemName = ds.Tables[0].Rows[0][1].ToString();
+                price = Int32.Parse(ds.Tables[0].Rows[0][2].ToString());
                 showItemOrder(id,itemName,price);
             }
         }

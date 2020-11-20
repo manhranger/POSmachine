@@ -79,7 +79,7 @@ namespace POSmachine
         }
         public bool excuteUpdateQuery()
         {
-            string UpdateNvQuery = "update Account set Name = '"+ name +"',Username = '"+ username +"',Password = '"+ password +"' where Id = "+ id +" ";
+            string UpdateNvQuery = "update Account set Name = N'"+ name +"',Username = '"+ username +"',Password = '"+ password +"' where Id = "+ id +" ";
             cmd = new SqlCommand(UpdateNvQuery, myconn);
             try
             {
