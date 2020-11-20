@@ -33,19 +33,22 @@ namespace POSmachine
             name = txtbtennhanvien.Text;
             username = txttaikhoan.Text;
             password = txtmatkhau.Text;
-            int role = 0;
-            nv.addValue(id,name,username,password,role);
-            if (nv.excuteUpdateQuery())
+            if (checkValidate())
             {
-                MessageBox.Show("Chỉnh sửa thành công!");
-                isUpdate = true;
-                this.Close();
-            }
-            else
-            {
-                lbThongbao.Text = "Có lỗi!";
-                isUpdate = false;
-            }
+                int role = 0;
+                nv.addValue(id, name, username, password, role);
+                if (nv.excuteUpdateQuery())
+                {
+                    MessageBox.Show("Chỉnh sửa thành công!");
+                    isUpdate = true;
+                    this.Close();
+                }
+                else
+                {
+                    lbThongbao.Text = "Có ai đó đã đặt tên tài khoản này, xin hãy đỗi lại!";
+                    isUpdate = false;
+                }
+            } 
         }
 
         private void lbThongbao_Click(object sender, EventArgs e)
@@ -61,6 +64,23 @@ namespace POSmachine
             txtbtennhanvien.Text = name;
             txttaikhoan.Text = username;
             txtmatkhau.Text = password;
+        }
+        private bool checkValidate()
+        {
+            string thongbao;
+            bool res = true;
+            if (name == "" || username == "" || password == "")
+            {
+                thongbao = "Bạn chưa nhập hết dữ liệu!!";
+                res = false;
+            }
+            else
+            {
+                res = true;
+                thongbao = "";
+            }
+            lbThongbao.Text = thongbao;
+            return res;
         }
 
         private void btnhuy_Click(object sender, EventArgs e)

@@ -31,17 +31,12 @@
             this.lbChangeText = new System.Windows.Forms.Label();
             this.btnthoat = new System.Windows.Forms.Button();
             this.btnclick = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btndoannhanh = new System.Windows.Forms.Button();
-            this.btncaphe = new System.Windows.Forms.Button();
-            this.btntratraicay = new System.Windows.Forms.Button();
-            this.btntrasua = new System.Windows.Forms.Button();
+            this.pnBarCategories = new System.Windows.Forms.Panel();
             this.btnlammoi = new System.Windows.Forms.Button();
             this.btninhoadon = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btngiamgia = new System.Windows.Forms.Button();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbChangeText
@@ -73,56 +68,13 @@
             this.btnclick.UseVisualStyleBackColor = true;
             this.btnclick.Click += new System.EventHandler(this.btnclick_Click);
             // 
-            // panel1
+            // pnBarCategories
             // 
-            this.panel1.Controls.Add(this.btndoannhanh);
-            this.panel1.Controls.Add(this.btncaphe);
-            this.panel1.Controls.Add(this.btntratraicay);
-            this.panel1.Controls.Add(this.btntrasua);
-            this.panel1.Location = new System.Drawing.Point(203, 48);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(78, 298);
-            this.panel1.TabIndex = 5;
-            // 
-            // btndoannhanh
-            // 
-            this.btndoannhanh.Location = new System.Drawing.Point(1, 138);
-            this.btndoannhanh.Name = "btndoannhanh";
-            this.btndoannhanh.Size = new System.Drawing.Size(73, 44);
-            this.btndoannhanh.TabIndex = 3;
-            this.btndoannhanh.Text = "Đồ ăn nhanh";
-            this.btndoannhanh.UseVisualStyleBackColor = true;
-            this.btndoannhanh.Click += new System.EventHandler(this.btndoannhanh_Click);
-            // 
-            // btncaphe
-            // 
-            this.btncaphe.Location = new System.Drawing.Point(1, 92);
-            this.btncaphe.Name = "btncaphe";
-            this.btncaphe.Size = new System.Drawing.Size(73, 40);
-            this.btncaphe.TabIndex = 2;
-            this.btncaphe.Text = "Cà phê";
-            this.btncaphe.UseVisualStyleBackColor = true;
-            this.btncaphe.Click += new System.EventHandler(this.btncaphe_Click);
-            // 
-            // btntratraicay
-            // 
-            this.btntratraicay.Location = new System.Drawing.Point(1, 46);
-            this.btntratraicay.Name = "btntratraicay";
-            this.btntratraicay.Size = new System.Drawing.Size(73, 40);
-            this.btntratraicay.TabIndex = 1;
-            this.btntratraicay.Text = "Trà trái cây";
-            this.btntratraicay.UseVisualStyleBackColor = true;
-            this.btntratraicay.Click += new System.EventHandler(this.btntratraicay_Click);
-            // 
-            // btntrasua
-            // 
-            this.btntrasua.Location = new System.Drawing.Point(1, 0);
-            this.btntrasua.Name = "btntrasua";
-            this.btntrasua.Size = new System.Drawing.Size(73, 40);
-            this.btntrasua.TabIndex = 0;
-            this.btntrasua.Text = "Trà sữa";
-            this.btntrasua.UseVisualStyleBackColor = true;
-            this.btntrasua.Click += new System.EventHandler(this.btntrasua_Click);
+            this.pnBarCategories.AutoScroll = true;
+            this.pnBarCategories.Location = new System.Drawing.Point(203, 48);
+            this.pnBarCategories.Name = "pnBarCategories";
+            this.pnBarCategories.Size = new System.Drawing.Size(78, 298);
+            this.pnBarCategories.TabIndex = 5;
             // 
             // btnlammoi
             // 
@@ -166,12 +118,13 @@
             // 
             // btngiamgia
             // 
+            this.btngiamgia.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btngiamgia.Location = new System.Drawing.Point(174, 11);
             this.btngiamgia.Name = "btngiamgia";
             this.btngiamgia.Size = new System.Drawing.Size(103, 23);
             this.btngiamgia.TabIndex = 10;
             this.btngiamgia.Text = "Thêm giảm giá";
-            this.btngiamgia.UseVisualStyleBackColor = true;
+            this.btngiamgia.UseVisualStyleBackColor = false;
             this.btngiamgia.Click += new System.EventHandler(this.btngiamgia_Click);
             // 
             // nhanvien
@@ -185,7 +138,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btninhoadon);
             this.Controls.Add(this.btnlammoi);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pnBarCategories);
             this.Controls.Add(this.btnclick);
             this.Controls.Add(this.btnthoat);
             this.Controls.Add(this.lbChangeText);
@@ -194,7 +147,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "nhanvien";
             this.Load += new System.EventHandler(this.nhanvien_Load);
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -205,11 +157,7 @@
         private System.Windows.Forms.Label lbChangeText;
         private System.Windows.Forms.Button btnthoat;
         private System.Windows.Forms.Button btnclick;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btndoannhanh;
-        private System.Windows.Forms.Button btncaphe;
-        private System.Windows.Forms.Button btntratraicay;
-        private System.Windows.Forms.Button btntrasua;
+        private System.Windows.Forms.Panel pnBarCategories;
         private System.Windows.Forms.Button btnlammoi;
         private System.Windows.Forms.Button btninhoadon;
         private System.Windows.Forms.Label label1;

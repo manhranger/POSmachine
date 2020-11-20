@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,6 +17,7 @@ namespace POSmachine
         //values
         private int idPotitionBarRank = -54;//id location
         private int idPotitionNvBar = -69;//id location
+        private int idPotitionItemsBar = -84;//id location
         private int idDot=0;
         private int totalCostDot = 0;
         int[] idItemList;string[] rankItemName;
@@ -36,12 +38,23 @@ namespace POSmachine
         Label myNameNvLb;
         Label myAccNvLb;
         Label myPassNvLb;
+        //
+        Label myItemNameLb;
+        Label myCostItemLb;
+        Label myDetailItemLb;
+        Button myEditItemBtn;
+        Button myDelItemBtn;
         Button myEditNvBtn;
         Button myDelNvBtn;
+        Panel myItemsBarPn;
         Panel myRankItemsBarPn;
         Panel myNhanvienAccBarPn;
         //object
         static nhanvienConfig[] nvList;
+        static nhanvienConfig nv;
+        static dishes dish;
+        //arraylist
+        ArrayList dishInfo;
 
         //connect database
         static string conString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\QLCUAHANG.mdf;Integrated Security=True";
@@ -213,6 +226,64 @@ namespace POSmachine
             labeltextDoanhThu.Text = "Doanh thu";
             pnGroupRankItem.Controls.Add(labeltextDoanhThu);
         }
+        private void createGroupItemLabel(int id,string itemName,int costItem,string detailItem)
+        {
+            int distance = 87;
+            //create myNhanvienAccBarPn
+            myItemsBarPn = new Panel()
+            {
+                Name = "myItemsBarPn-" + id,
+                Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular)
+            };
+            myItemsBarPn.Location = new Point(1, idPotitionItemsBar + distance);
+            myItemsBarPn.BackColor = Color.White;
+            myItemsBarPn.Size = new System.Drawing.Size(645, 81);
+            pnListItemsGroup.Controls.Add(myItemsBarPn);
+            //create myItemNameLb
+            myItemNameLb = new Label() { Name = "myCatgoryNameLb-" + id };
+            myItemNameLb.Text = itemName;
+            myItemNameLb.Location = new Point(3, 30);
+            myItemNameLb.Size = new System.Drawing.Size(128, 40);
+            myItemsBarPn.Controls.Add(myItemNameLb);
+            //create myCostItemLb
+            myCostItemLb = new Label() { Name = "myCostItemLb-" + id};
+            myCostItemLb.Text = String.Format("{0:n0}", costItem);
+            myCostItemLb.Location = new Point(138, 30);
+            myCostItemLb.Size = new System.Drawing.Size(137, 40);
+            myItemsBarPn.Controls.Add(myCostItemLb);
+            //create myDetailItemLb
+            myDetailItemLb = new Label() { Name = "myDetailItemLb-" + idPotitionItemsBar };
+            myDetailItemLb.Text = detailItem;
+            myDetailItemLb.Location = new Point(282, 30);
+            myDetailItemLb.Size = new System.Drawing.Size(260, 40);
+            myItemsBarPn.Controls.Add(myDetailItemLb);
+            //create myEditItemBtn
+            myEditItemBtn = new Button()
+            {
+                Name = "myEditItemBtn-" + id,
+                Font = new Font("Microsoft Sans Serif", 8, FontStyle.Regular),
+                BackColor = Color.Gainsboro
+            };
+            myEditItemBtn.Text = "Chỉnh sửa nhân viên";
+            myEditItemBtn.Location = new Point(567, 3);
+            myEditItemBtn.Size = new System.Drawing.Size(75, 38);
+            myEditItemBtn.Click += new EventHandler(myEditNvBtn_Click);
+            myItemsBarPn.Controls.Add(myEditItemBtn);
+            //create myDelItemBtn
+            myDelItemBtn = new Button()
+            {
+                Name = "myDelNvBtn-" + id,
+                Font = new Font("Microsoft Sans Serif", 8, FontStyle.Regular),
+                BackColor = Color.Gainsboro
+            };
+            myDelItemBtn.Text = "Xóa nhân viên";
+            myDelItemBtn.Location = new Point(567, 43);
+            myDelItemBtn.Size = new System.Drawing.Size(75, 35);
+            myDelItemBtn.Click += new EventHandler(myDelNvBtn_Click);
+            myItemsBarPn.Controls.Add(myDelItemBtn);
+            //
+            idPotitionItemsBar += distance;
+        }
         private void createGroupRankLabelAndPanel(int id,int soluong,int danhthu, string itemName)
         {
             //create myRankItemsBarPn
@@ -309,10 +380,25 @@ namespace POSmachine
         }
         private void myDelNvBtn_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Bạn có chắc muốn xóa tài khoản .. không", "Thông báo", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
+            Button btn = (Button)sender;
+            String name = btn.Name;
+            int id = Int32.Parse(name.Substring(name.IndexOf("-") + 1, name.Length - name.IndexOf("-") - 1));
+            for (int i = 0; i < nvList.Length; i++)
             {
-                //do something
+                if (nvList[i].getId() == id)
+                {
+                    DialogResult dialogResult = MessageBox.Show("Bạn có chắc muốn xóa tài khoản "+
+                    nvList[i].getUsername().Trim() +" này không", "Thông báo", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        nvList[i].excuteDelQuery();
+                        //refesh accPanel
+                        idPotitionNvBar = -69;//id location
+                        pnGroupAccNv.Controls.Clear();
+                        showAccNvPanel();
+                        return;
+                    }
+                }
             }
         }
         
@@ -334,6 +420,7 @@ namespace POSmachine
                         pnGroupAccNv.Controls.Clear();
                         showAccNvPanel();
                     }
+                    break;
                 }
             }
         }
@@ -356,7 +443,7 @@ namespace POSmachine
 
         private void btnclickme_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnenddot_Click(object sender, EventArgs e)
@@ -508,6 +595,23 @@ namespace POSmachine
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void admin_Load(object sender, EventArgs e)
+        {
+            dish = new dishes();
+            dishInfo = dish.showInfor();
+            int id=0, cost=0;
+            string itemName="",categoryItem="",detailItem="";
+            for(int i = 0; i < dishInfo.Count; i += 6)
+            {
+                id = Int32.Parse(dishInfo[i].ToString());
+                itemName = dishInfo[i+1].ToString();
+                categoryItem = dishInfo[i+2].ToString();
+                detailItem = dishInfo[i + 3].ToString();
+                cost = Int32.Parse(dishInfo[i+4].ToString());
+                createGroupItemLabel(id,itemName,cost,detailItem);
+            }
         }
     }
 }

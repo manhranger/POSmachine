@@ -16,6 +16,7 @@ namespace POSmachine
     public partial class nhanvien : Form
     {
         int idOrderLocation = -65;//id location Horizable
+        int idCateBtnLocation = -46;//id location Horizable
         int gtgiamgia = 0;//
         int totalCost = 0;
         //
@@ -23,6 +24,8 @@ namespace POSmachine
         Panel myOrderPanel = new Panel() { Name = "myOrderPanel" };
         Label myTotalCostLabel = new Label() { Name = "myTotalCostLabel", Font = new Font("Microsoft Sans Serif", 10) };
         Label myDateTimeLabel = new Label() { Name = "myDateTimeLabel", Font = new Font("Microsoft Sans Serif", 10) };
+        //object
+        static dishes dish = new dishes();
         //connect database
         static string conString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Excercise\WINDOWSPROGRAM\BTcuoiky\GitHub\POSmachine\POSmachine\QLCUAHANG.mdf;Integrated Security=True";
         SqlConnection myconn = new SqlConnection(conString);
@@ -109,6 +112,24 @@ namespace POSmachine
             myOrderPanel.Controls.Add(myOrderBtn);
             idOrderLocation += distance;
         }
+        private void createCategoriesBt(string categoryName)
+        {
+            int distance = 46;
+            Button btnCate = new Button() { Name="btcate"+idCateBtnLocation};
+            btnCate.Text = categoryName;
+            btnCate.BackColor = SystemColors.ControlLight;
+            btnCate.Location = new Point(1, idCateBtnLocation+distance);
+            btnCate.Size = new System.Drawing.Size(73, 40);
+            btnCate.Click += new EventHandler(eventCategories);
+            pnBarCategories.Controls.Add(btnCate);
+            idCateBtnLocation += distance;
+        }
+        private void eventCategories(object sender,EventArgs e)
+        {
+            Button currentBtn = (Button)sender;
+            string chude = currentBtn.Text;
+            showItems(chude);
+        }
         private void eventOdered(object sender, EventArgs e)
         {
             string strId;
@@ -141,6 +162,12 @@ namespace POSmachine
 
         private void nhanvien_Load(object sender, EventArgs e)
         {
+            idCateBtnLocation = -46;
+            string[] categories = dish.getCategory();
+            for(int i = 0; i < categories.Length; i++)
+            {
+                createCategoriesBt(categories[i]);
+            }
             InitializeComponent();
         }
 

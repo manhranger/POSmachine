@@ -91,6 +91,20 @@ namespace POSmachine
                 return false;
             }
         }
+        public bool excuteDelQuery()
+        {
+            string UpdateNvQuery = "delete from Account where Id = " + id + "";
+            cmd = new SqlCommand(UpdateNvQuery, myconn);
+            try
+            {
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public string deleteQuery(int id)
         {
             string res = "delete from Account where id = "+ id +"";
