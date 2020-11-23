@@ -670,6 +670,10 @@ namespace POSmachine
 
         private void admin_Load(object sender, EventArgs e)
         {
+            //set label date time
+            DateTime today = DateTime.Today;
+            string datetime = today.ToString("d");
+            lbdatetime.Text = "Ngày : " + datetime;
             createListItemBarPn();
         }
 

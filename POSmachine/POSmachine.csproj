@@ -150,6 +150,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -172,6 +173,17 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>QLCUAHANG.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\rsz_exit_301.png" />
+    <None Include="Resources\rsz_exit_30.png" />
+    <None Include="Resources\rsz_enter.png" />
+    <None Include="Resources\rsz_price-tag.png" />
+    <None Include="Resources\rsz_printer.png" />
+    <None Include="Resources\rsz_renew.png" />
+    <None Include="Resources\rsz_pudding.png" />
+    <None Include="Resources\rsz_add-user.png" />
+    <None Include="Resources\rsz_ending.png" />
+    <None Include="Resources\rsz_exit.png" />
+    <None Include="Resources\exit.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

@@ -33,11 +33,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tbtaikhoan = new System.Windows.Forms.TextBox();
             this.tbmatkhau = new System.Windows.Forms.TextBox();
-            this.btndangnhap = new System.Windows.Forms.Button();
-            this.btnthoat = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lbthongbao = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnthoat = new System.Windows.Forms.Button();
+            this.btndangnhap = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -78,36 +78,6 @@
             this.tbmatkhau.Size = new System.Drawing.Size(256, 22);
             this.tbmatkhau.TabIndex = 4;
             // 
-            // btndangnhap
-            // 
-            this.btndangnhap.Location = new System.Drawing.Point(375, 171);
-            this.btndangnhap.Name = "btndangnhap";
-            this.btndangnhap.Size = new System.Drawing.Size(75, 36);
-            this.btndangnhap.TabIndex = 5;
-            this.btndangnhap.Text = "Đăng nhập";
-            this.btndangnhap.UseVisualStyleBackColor = true;
-            this.btndangnhap.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // btnthoat
-            // 
-            this.btnthoat.Location = new System.Drawing.Point(456, 171);
-            this.btnthoat.Name = "btnthoat";
-            this.btnthoat.Size = new System.Drawing.Size(75, 36);
-            this.btnthoat.TabIndex = 6;
-            this.btnthoat.Text = "Thoát";
-            this.btnthoat.UseVisualStyleBackColor = true;
-            this.btnthoat.Click += new System.EventHandler(this.btnthoat_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(27, 1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(167, 206);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 7;
-            this.pictureBox1.TabStop = false;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -131,6 +101,51 @@
             this.lbthongbao.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.lbthongbao.Visible = false;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(27, 1);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(167, 206);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 7;
+            this.pictureBox1.TabStop = false;
+            // 
+            // btnthoat
+            // 
+            this.btnthoat.BackColor = System.Drawing.Color.Crimson;
+            this.btnthoat.FlatAppearance.BorderSize = 0;
+            this.btnthoat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnthoat.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnthoat.Image = global::POSmachine.Properties.Resources.rsz_exit_30;
+            this.btnthoat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnthoat.Location = new System.Drawing.Point(444, 171);
+            this.btnthoat.Name = "btnthoat";
+            this.btnthoat.Size = new System.Drawing.Size(87, 36);
+            this.btnthoat.TabIndex = 6;
+            this.btnthoat.Text = "THOÁT";
+            this.btnthoat.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnthoat.UseVisualStyleBackColor = false;
+            this.btnthoat.Click += new System.EventHandler(this.btnthoat_Click);
+            // 
+            // btndangnhap
+            // 
+            this.btndangnhap.BackColor = System.Drawing.SystemColors.Highlight;
+            this.btndangnhap.FlatAppearance.BorderSize = 0;
+            this.btndangnhap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btndangnhap.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btndangnhap.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btndangnhap.Image = global::POSmachine.Properties.Resources.rsz_enter;
+            this.btndangnhap.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btndangnhap.Location = new System.Drawing.Point(317, 171);
+            this.btndangnhap.Name = "btndangnhap";
+            this.btndangnhap.Size = new System.Drawing.Size(121, 36);
+            this.btndangnhap.TabIndex = 5;
+            this.btndangnhap.Text = "ĐĂNG NHẬP";
+            this.btndangnhap.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btndangnhap.UseVisualStyleBackColor = false;
+            this.btndangnhap.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -148,7 +163,7 @@
             this.Controls.Add(this.label2);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Đăng nhập";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

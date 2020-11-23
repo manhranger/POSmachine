@@ -388,6 +388,16 @@ namespace POSmachine
             tinhtongtien();
             //
         }
+
+        private void lbChangeText_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnthoat_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 
 }
