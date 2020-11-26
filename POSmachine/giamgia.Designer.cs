@@ -119,7 +119,7 @@
             this.Controls.Add(this.label2);
             this.Name = "giamgia";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "giamgia";
+            this.Text = "Giảm giá";
             this.Load += new System.EventHandler(this.giamgia_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

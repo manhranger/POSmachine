@@ -178,7 +178,7 @@
             this.Controls.Add(this.label1);
             this.Name = "editItem";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "editItem";
+            this.Text = "Chỉnh sửa món";
             this.Load += new System.EventHandler(this.editItem_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

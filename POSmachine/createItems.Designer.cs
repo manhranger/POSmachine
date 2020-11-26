@@ -179,7 +179,7 @@
             this.Controls.Add(this.label1);
             this.Name = "createItems";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "createItems";
+            this.Text = "Thêm món";
             this.Load += new System.EventHandler(this.createItems_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

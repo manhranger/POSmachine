@@ -178,7 +178,7 @@
             this.Controls.Add(this.label1);
             this.Name = "CreateEmployee";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "CreateEmployee";
+            this.Text = "Thêm nhân viên";
             this.Load += new System.EventHandler(this.CreateEmployee_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
